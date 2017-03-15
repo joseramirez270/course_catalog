@@ -10,16 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170315054651) do
+ActiveRecord::Schema.define(version: 20170315162300) do
 
   create_table "courses", force: :cascade do |t|
-    t.string   "term"
     t.string   "code"
     t.string   "name"
     t.text     "description"
     t.float    "credits"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "courses_instructors", id: false, force: :cascade do |t|
+    t.integer "course_id",     null: false
+    t.integer "instructor_id", null: false
+    t.index ["course_id", "instructor_id"], name: "index_courses_instructors_on_course_id_and_instructor_id"
+    t.index ["instructor_id", "course_id"], name: "index_courses_instructors_on_instructor_id_and_course_id"
+  end
+
+  create_table "courses_subjects", id: false, force: :cascade do |t|
+    t.integer "subject_id", null: false
+    t.integer "course_id",  null: false
+    t.index ["course_id", "subject_id"], name: "index_courses_subjects_on_course_id_and_subject_id"
+    t.index ["subject_id", "course_id"], name: "index_courses_subjects_on_subject_id_and_course_id"
   end
 
   create_table "instructors", force: :cascade do |t|
@@ -32,12 +45,10 @@ ActiveRecord::Schema.define(version: 20170315054651) do
   end
 
   create_table "subjects", force: :cascade do |t|
-    t.string   "term"
     t.string   "name"
     t.string   "abbrev"
-    t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
