@@ -1,0 +1,6 @@
+<%= form_tag('search/:query', method: "get") do %>
+  <%= label_tag(:course, "Search for:") %>
+  <%= text_field_tag(:course) %>
+  <%= select_tag(:subj_id, options_for_select(@subjects)) %>
+  <%= submit_tag("Search") %>
+<% end %>
