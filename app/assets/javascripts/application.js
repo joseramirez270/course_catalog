@@ -14,3 +14,11 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+// makes search dynamic
+$(function() {
+  $("#course_search input").keyup(function(){
+    $.get($("#course_search").attr("action"), $("#course_search").serialize(), null, "script");
+    return false;
+  });
+});

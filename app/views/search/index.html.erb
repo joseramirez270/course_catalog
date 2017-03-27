@@ -1,6 +1,10 @@
-<%= form_tag('search/:query', method: "get") do %>
+<%= form_tag(search_path, method: "get", id: "course_search", remote: true) do %>
   <%= label_tag(:course, "Search for:") %>
   <%= text_field_tag(:course) %>
   <%= select_tag(:subj_id, options_for_select(@subjects)) %>
   <%= submit_tag("Search") %>
 <% end %>
+
+<div id="results">
+  <%= render "results" %>
+</div>
