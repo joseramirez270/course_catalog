@@ -5,7 +5,6 @@ class SearchController < ApplicationController
   end
 
   def results
-    @user = User.find(params[:id])
     if params[:course] != '' and params[:subj_id] != ''
       course_ids = SubjectCourse.where(subject_id: params[:subj_id]).map {|subcourse| subcourse.course_id}
       @courses = []
