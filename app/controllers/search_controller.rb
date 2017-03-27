@@ -1,15 +1,26 @@
 class SearchController < ApplicationController
   def index
     @subjects = Subject.all.map{ |subj| [ subj.name, subj.id ]}
+    @subjects.unshift nil
   end
 
   def results
-    @courses = Course.all
-    @subjects = Subject.all
-    if params[:course]
+    @user = User.find(params[:id])
+    if params[:course] != '' and params[:subj_id] != ''
+      course_ids = SubjectCourse.where(subject_id: params[:subj_id]).map {|subcourse| subcourse.course_id}
+      @courses = []
+      course_ids.each do |c_id|
+        @courses.push(*Course.where(id: c_id, name: params[:course]))
+      end
+    elsif params[:subj_id] != ''
+      course_ids = SubjectCourse.where(subject_id: params[:subj_id]).map {|subcourse| subcourse.course_id}
+      @courses = []
+      course_ids.each do |c_id|
+        @courses.push(Course.find_by_id(c_id))
+      end
+    elsif params[:course] != ''
       @courses = Course.where(name: params[:course])
-    elsif params[:subj_id]
-      #@courses = Course.where(course contains subject)
+      puts @courses
     end
   end
 end

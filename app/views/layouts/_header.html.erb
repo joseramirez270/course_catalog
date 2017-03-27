@@ -6,6 +6,7 @@
 
         <% if logged_in? %>
           <li><%= link_to "Home", current_user %></li>
+          <li><%= link_to "Search", search_path %></li>
           <li><%= link_to "Subjects", subjects_path %></li>
           <li><%= link_to "Instructors", instructors_path %></li>
           <li><%= link_to "Courses", courses_path %></li>

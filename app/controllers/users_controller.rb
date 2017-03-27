@@ -4,6 +4,11 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
+    course_ids = Enrollment.where(user_id: @user.id).map {|enrollment| enrollment.course_id}
+    @courses = []
+    course_ids.each do |c_id|
+      @courses.push(*Course.where(id: c_id))
+    end
   end
 
   # GET /users/new
@@ -20,6 +25,16 @@ class UsersController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def enroll
+    @user = User.find_by_id(session[:user_id])
+    @course = Course.find(params[:course])
+    @enrollment = Enrollment.new
+    @enrollment.user_id = @user.id
+    @enrollment.course_id = @course.id
+    @enrollment.save!
+    redirect_to @user
   end
 
   private

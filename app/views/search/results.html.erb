@@ -1,3 +1,4 @@
+<% if @courses.present? %>
 <table>
   <thead>
     <tr>
@@ -8,14 +9,14 @@
   </thead>
 
   <tbody>
-      <% if @courses.present? %>
+
         <% @courses.each do |course| %>
           <tr>
-            <td><%= course.name %> <%= course.description %> Enroll</td>
+            <td><%= course.name %> <%= course.description %> <%= link_to 'Enroll', enroll_path(course: course.id), method: :post  %></td>
           </tr>
         <% end %>
-      <% else %>
-        <p>No courses found</p>
-      <% end %>
   </tbody>
 </table>
+<% else %>
+  <p>No courses found</p>
+<% end %>
