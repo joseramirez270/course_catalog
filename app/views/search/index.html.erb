@@ -1,4 +1,4 @@
-<%= form_tag('/search', method: "get", id: "course_search", remote: true) do %>
+<%= form_tag('/search', method: "get", id: "course_search", 'data-no-turbolink' => true, remote: true) do %>
   <%= label_tag(:subj_id, "Subject:") %>
   <%= select_tag(:subj_id, options_for_select(@subjects)) %>
   <%= label_tag(:course, "Search for:") %>
