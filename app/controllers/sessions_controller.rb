@@ -18,14 +18,4 @@ class SessionsController < ApplicationController
     log_out
     redirect_to root_url
   end
-
-  """
-  def enroll(course)
-    @user = User.find_by()
-    @enrollment = Enrollment.new
-    @enrollment.user_id = @user.id
-    @enrollment.course_id = course.id
-    @enrollment.save!
-  end
-  """
 end
