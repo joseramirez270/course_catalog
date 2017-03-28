@@ -16,7 +16,7 @@ class SearchController < ApplicationController
         @courses.push(Course.find_by_id(c_id))
       end
     elsif params[:course] != ''
-      @courses = Course.where(name: params[:course])
+      @courses = Course.where("name LIKE?", "%#{params[:course]}%")
       puts @courses
     end
   end
